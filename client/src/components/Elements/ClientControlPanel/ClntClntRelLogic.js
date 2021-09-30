@@ -1,16 +1,13 @@
 
-import { exactRelations, oppositeMapWithGender, rMap, siblingMap, oppositeMap, genderMap } from "../relationDictionary";
+import { rMap, siblingMap, oppositeMap } from "../relationDictionary";
 
 
 function sortData(hashMap){
 
   let resultArray = [];
-  hashMap.forEach((value, key) => {
-    // let data = { key, value };
-    resultArray.push(value);
-  });
+  hashMap.forEach( (value) => resultArray.push(value) );
 
-  console.log('before sort: ',resultArray)
+  // console.log('before sort: ',resultArray);
   resultArray.sort((e1,e2)=>{
     if(e1.gLevel < e2.gLevel){
       return 1;

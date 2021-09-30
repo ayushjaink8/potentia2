@@ -10,8 +10,7 @@ import {
   TextField
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-// import { TreeLogic } from './TreeLogic';
-import { TempLogic } from './tempLogic';
+import { TreeLogic } from './TreeLogic';
 import { useClientData } from '../../../context/ClientContext'
 import NodeMember from './NodeMember';
 import { useFamilyPanelData } from '../../../context/FamilyPanelContext';
@@ -44,7 +43,7 @@ const FamilyTree = ({selectedClient}) => {
     const data = await getFamilyRelations(selectedClient);
 
     if(data) {
-      let family = await TempLogic(data);
+      let family = await TreeLogic(data);
       if(family) await setFamilyTreeData(family);
       else{
         console.log('Ambigious relations found so can\'t be displayed.');
