@@ -16,7 +16,7 @@ const LayoutPage = () => {
   useEffect(() => {
     if(cookies.get('token')){
       setloading(true);
-      const token = cookies.get('token').token;   // getting token from cookies and validating
+      const token = cookies.get('token');   // getting token from cookies and validating
       loginThroughCookies({token});
     }
     console.log("testing");

@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { rMap, siblingMap, oppositeMap, csvHeaders, csvToArray, CreateDataObjects, toTitleCase, parseNumber, parseDate } = require('../keys/helpers');
+const { rMap, csvHeaders, CreateDataObjects, toTitleCase, parseNumber, parseDate } = require('../keys/helpers');
 const db = require('../db/connection');
+const {separateFamilies} = require('../keys/separateFamiliesLogic');
 
 const XLSX = require('xlsx');
 
-var upload = multer({
+var upload = multer({          // checking in the backend (again), the format the uploaded file
     filename: 'csvfile',
     fileFilter: (req, file, cb) => {
         // console.log('file mimetype', file.mimetype)
@@ -39,13 +40,8 @@ router.post('/uploadcsv', upload.single('csvfile'), (req, response) => {
     ws['!ref'] = XLSX.utils.encode_range(range);            /////  range updated after skipping rows
 
     const data = XLSX.utils.sheet_to_json(ws, {raw:false, dateNF:'dd-mm-yyyy'});
-    const rows = CreateDataObjects(data);    // formatting and filtering data
+    const rows = CreateDataObjects(data);    // formatting and filtering the data
 
-    // console.log(rows);
-    // response.send({ data: [], message: "UPLOADED" });
-
-    // const rows = csvToArray(req.file.buffer.toString('utf-8'));
-    // console.log(rows);
     if(rows.length == 0) success = false;
 
     if(success)
@@ -85,7 +81,7 @@ router.post('/uploadcsv', upload.single('csvfile'), (req, response) => {
 
         console.log('CSV file successfully processed');
 
-        let families = seperateFamilies(nodes);
+        let families = separateFamilies(nodes);
 
         // families.forEach((family, index) => {
         //     const resultArray = family.resultArray;
@@ -554,175 +550,6 @@ router.post('/getClntFrm', (req,res) => {
         }
     })
 })
-
-
-// function formulate(nodes) {
-//     let hashMap = new Map();
-
-//     client = {
-//         personName: nodes[0].pp,
-//         level: 0,
-//         siblingLevel: 0,
-//         relation: '',
-//         personID: Number(nodes[0].pid),
-//         to: ''
-//     }
-
-//     // console.log("Input: ",nodes);
-
-//     hashMap.set(nodes[0].pid, client)
-
-//     let noChange;
-//     do {
-//         let tempMap = new Map(hashMap);  // making a copy of current state of hashmap!
-//         noChange = false;
-
-//         // console.log("\nAfter Iterating: ", tempMap);
-
-//         for (let i = 0; i < nodes.length; i++) {
-//             node = nodes[i];     // current relation is called as node
-//             if (tempMap.get(node.pid) != undefined && tempMap.get(node.sid) === undefined)
-//             {
-//                 let level = tempMap.get(node.pid).level + rMap[node.r];
-//                 let siblingLevel = tempMap.get(node.pid).siblingLevel + siblingMap[node.r];
-//                 let relation = node.r;
-//                 let to = node.pp;
-//                 let personID = Number(node.sid);
-
-//                 hashMap.set(node.sid, {
-//                     personName: node.sp,
-//                     level,
-//                     siblingLevel,
-//                     relation,
-//                     personID,
-//                     to
-//                 })
-
-//                 nodes.splice(i, 1);
-//                 i--;
-//                 noChange = true; // To make sure a disjoin set doesn't make an infinite loop
-
-//             } else if (tempMap.get(node.sid) != undefined && tempMap.get(node.pid) === undefined)
-//             {
-//                 let level = tempMap.get(node.sid).level - rMap[node.r];
-//                 let siblingLevel = tempMap.get(node.sid).siblingLevel + siblingMap[node.r];
-//                 let relation = oppositeMap[node.r];
-//                 let to = node.sp;
-//                 let personID = Number(node.pid);
-
-//                 hashMap.set(node.pid, {
-//                     personName: node.pp,
-//                     level,
-//                     siblingLevel,
-//                     relation,
-//                     personID,
-//                     to
-//                 })
-
-//                 nodes.splice(i, 1);
-//                 i--;
-//                 noChange = true;
-//             }
-//             // ignoring those relations in which both pid and sid are already defined ...!!
-//         }
-
-//     } while (nodes.length > 0 && noChange);
-
-//     let resultArray = [];
-//     hashMap.forEach((value, key) => {
-//         let data = { key, value };
-//         resultArray.push(data)
-//         // console.log(data);
-//     })
-
-//     // console.log('\nreturn result: ', resultArray, client);
-//     return {resultArray, client};
-// }
-
-let keys = new Map();
-let equals = new Map();
-let records = new Map();
-
-function format(nodes) {
-
-    client = {
-        personName: nodes[0].pp,
-        level: 0,
-        siblingLevel: 0,
-        relation: '',
-        personID: Number(nodes[0].pid),
-        to: ''
-    }
-
-    const result = [];
-    nodes.forEach((node)=> result.push(node));
-
-    // console.log('format function called', result);
-
-    return {result, client};
-
-}
-
-function joinFamilies(visited, key, family){
-    if(visited[key] == 1) return;
-    visited[key] = 1;
-    records.get(key).forEach((record) => {
-        family.push(record);
-    })
-    equals.get(key).forEach((otherKey) => {
-        joinFamilies(visited, otherKey, family);
-    })
-}
-
-function seperateFamilies(relations){
-    let key = -1;
-    relations.forEach((row) => {
-        if(keys.has(row.pid) && keys.has(row.sid)){
-            equals.get(keys.get(row.pid)).push(keys.get(row.sid));
-            equals.get(keys.get(row.sid)).push(keys.get(row.pid));
-            records.get(keys.get(row.pid)).push(row);
-        } else if(keys.has(row.pid)){
-            oldKey = keys.get(row.pid);
-            keys.set(row.sid, oldKey);
-            records.get(oldKey).push(row);
-        } else if(keys.has(row.sid)){
-            oldKey = keys.get(row.sid);
-            keys.set(row.pid, oldKey);
-            records.get(oldKey).push(row);
-        } else {
-            key++;   /// represents the temporary family ID
-            keys.set(row.pid, key);
-            keys.set(row.sid, key);
-            equals.set(key, []);
-            records.set(key, [row]);
-        }
-    })
-
-    // console.log('keys: ',keys);
-    // console.log('records: ',records);
-    // console.log('equals: ',equals);
-
-    let visited = new Array(key+1).fill(0);
-    let length = 0;
-    const families = [];
-    for(let i = 0; i <= key; i++){
-        let family = [];
-        if(visited[i] == 0){
-            joinFamilies(visited, i, family);
-            length += family.length;
-            // console.log('Before', family);
-            if(family.length) {
-                families.push(format(family));
-            }
-        }
-    }
-    // console.log('Families: ',families)
-    // console.log('resultArray: ',families[0].resultArray)
-    keys = new Map();
-    equals = new Map();
-    records = new Map();
-    return families;
-}
 
 module.exports = router;
 
