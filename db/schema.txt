@@ -1,0 +1,103 @@
+
+/* Copy-paste the following code inside the MySQL workbench and hit run to create the tables */
+
+
+CREATE TABLE ClientDt(ClientID int AUTO_INCREMENT,
+    personID numeric(6,0),
+    ClntFirstName nvarchar(50),
+    ClntMiddleInitial nvarchar(50),
+    ClntLastName nvarchar(50),
+    ClntCrmReference nvarchar(50),
+    ClntCrmSyncStatus nvarchar(50),
+    LastSyncedDate datetime,
+    ClientPhoto nvarchar(2083),
+    ClientNotes1 text(1024),
+    ClientNotes2 text(1024),
+    Gender varchar(16),
+    DateOfBirth datetime,
+    BizTypeID numeric(6,0),
+    BizOperatorID numeric(6,0),
+    ClientFirmRelateID numeric(6,0),
+    primary key(ClientID)
+)
+
+/*
+CREATE TABLE ClientCSV(
+    id int AUTO_INCREMENT,
+    personID numeric(6,0),
+    name varchar(150),
+    level int,
+    siblinglevel int,
+    relation varchar(30),
+    relatedTo varchar(150),
+    ClientID int,
+    primary key(id),
+    foreign key (ClientID) references ClientDt(ClientID)
+);   */
+
+CREATE TABLE ClientFirmRelateIDt(
+    ClientFirmRelateID int AUTO_INCREMENT,
+    CFRelateName text(128),
+    CFRelateDescription text(1024),
+    CFRelateBizStatus text(64),
+    CFRelateBizPotential text(64),
+    CFRelateOwnerID numeric(6,0),
+    BizTypeID numeric(6,0),
+    FamilyID int,
+    primary key(ClientFirmRelateID)
+);
+
+CREATE TABLE login(
+    email varchar(255),
+    password varchar(100)
+);
+INSERT INTO login(email, password) values('senthil@zettaone.com', 'password');
+
+CREATE TABLE ClientClientRelateDt(
+    ClntClntRelateID int AUTO_INCREMENT,
+    ClientID_1 numeric(6,0),
+    ClientID_2 numeric(6,0),
+    CCRelateName TEXT(128),
+    CCRelateDescription TEXT(1024),
+    ClientFirmRelateID numeric(6,0),
+    FamilyID int,
+    primary key(ClntClntRelateID)
+);
+
+CREATE TABLE business_type(
+    BizTypeID int AUTO_INCREMENT,
+    BizTypeName TEXT(128),
+    primary key(BizTypeId)
+);
+
+CREATE TABLE business_type_data(
+    bizTypeDataId int AUTO_INCREMENT,
+    ClientID int,
+    BizTypeID int,
+    BizTypeName TEXT(128),
+    BizTypeDesc TEXT(1024),
+    primary key(bizTypeDataId)
+);
+
+
+CREATE TABLE FamilyRelations(
+    id int AUTO_INCREMENT,
+    ClientID_1 numeric(6,0),
+    ClientName_1 TEXT(128),
+    ClientID_2 numeric(6,0),
+    ClientName_2 TEXT(128),
+    csvRelation TEXT(128),
+    CCRelateName TEXT(128),
+    CCRelateDescription TEXT(1024),
+    ClientFirmRelateID numeric(6,0),
+    FamilyID int,
+    primary key(id)
+);
+
+CREATE TABLE FamilyMemberNotes(
+    id int AUTO_INCREMENT,
+    FamilyID int,
+    personID numeric(6,0),
+    personNotes TEXT(1024),
+    primary key(id)
+);
