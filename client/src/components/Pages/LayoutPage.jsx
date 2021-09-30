@@ -34,7 +34,7 @@ const LayoutPage = () => {
       <>
         {/* {loggedin ? <Sidebar /> : <LoginPage />} */}
         {(loggedin)
-          ? <Sidebar/>
+          ? <Sidebar/>             //  <Sidebar/> is the main landing element through which all the other pages are being routed.
           : <>
               { (loading)
                 ? <>{loadPage}</>

@@ -83,70 +83,6 @@ router.post('/uploadcsv', upload.single('csvfile'), (req, response) => {
 
         let families = separateFamilies(nodes);
 
-        // families.forEach((family, index) => {
-        //     const resultArray = family.resultArray;
-        //     const client = family.client;
-        //     // console.log(resultArray);
-        //     const clientName = client.personName.split(' ');
-
-        //     let sql1 = 'Insert INTO ClientFirmRelateIDt() Values();';   // FamilyID to be inserted 26 lines below
-        //     db.query(sql1, client.personID, (err, res) => {
-        //         if (err) console.log(err);
-        //         else {
-        //             let ClientFirmRelateID = res.insertId;
-
-        //             let sql, set;
-        //             if(clientName.length == 1){
-        //                 sql = 'INSERT INTO ClientDt(personID,ClntFirstName, ClientFirmRelateID) VALUES(?,?,?);';
-        //                 set = [client.personID,clientName[0], ClientFirmRelateID];
-        //             }
-        //             else if(clientName.length == 2){
-        //                 sql = 'INSERT INTO ClientDt(personID, ClntFirstName, ClntLastName, ClientFirmRelateID) VALUES(?,?,?,?);';
-        //                 set = [client.personID, clientName[0], clientName[1], ClientFirmRelateID];
-        //             }
-        //             else {
-        //                 sql = 'INSERT INTO ClientDt(personID, ClntFirstName, ClntMiddleInitial, ClntLastName, ClientFirmRelateID) VALUES(?,?,?,?,?);';
-        //                 let lastName = '';
-        //                 for(let i = 2; i < clientName.length; i++) (i!=clientName.length-1)? lastName += clientName[i] + ' ': lastName += clientName[i];
-        //                 set = [client.personID,clientName[0], clientName[1], lastName, ClientFirmRelateID];
-        //             }
-        //             db.query(sql, set, (err, res) => {
-        //                 if (err) console.log(err);
-        //                 else {
-        //                     let ClientID = res.insertId;
-
-        //                     let updateSql = 'UPDATE ClientFirmRelateIDt SET FamilyID = ? where ClientFirmRelateID = ?'
-        //                     db.query(updateSql, [ClientID, ClientFirmRelateID], (err, res) => {
-        //                         if(err) console.log(err);
-        //                         else {
-        //                             let error = false;
-        //                             sql = 'INSERT INTO ClientCSV(personID, name, level, siblinglevel, relation, relatedTo, ClientID) VALUES(?, ?, ?, ?, ?, ?, ?)';
-        //                             for (let i = 0; i < resultArray.length; i++) {
-        //                                 let obj = resultArray[i].value;
-        //                                 db.query(sql, [obj.personID, obj.personName, obj.level, obj.siblingLevel, obj.relation, obj.to, ClientID], (err, res) => {
-        //                                     if (err) {
-        //                                         // console.log(err);
-        //                                         error = true;
-        //                                     }
-        //                                     if(index === families.length - 1 && i === resultArray.length-1)
-        //                                         response.send({ data: families, message: "UPLOADED" });
-        //                                 });
-        //                                 if (error) break;
-        //                             }
-
-        //                             sql2 = 'INSERT INTO FamilyRelations() VALUES()';
-        //                             //
-
-        //                         }
-        //                     })
-
-        //                 }
-        //             })
-        //         }
-        //     })
-        // })
-
-
         families.forEach((family, index) => {
             const resultArray = family.result;
             const client = family.client;
@@ -237,52 +173,6 @@ router.get('/getAllClients', (req,res) => {
         }
     })
 })
-
-
-// router.get('/getAllRelations',(req,res) => {
-//     let sql = 'Select * from ClientCSV';
-//     db.query(sql, (err, result) => {
-//         if(err) console.log(err);
-//         else{
-//             // console.log("got all levels",result);
-//             let finalArr =[];
-//             if(result.length === 0) {
-//                 res.send(finalArr);
-//                 return;
-//             }
-//             var id = result[0].ClientID;
-//             var value = []
-//             result.forEach( item => {
-//                 if( item.ClientID === id ){
-//                     value.push(item);
-//                 }else{
-//                     value.sort(function(a,b){
-//                         if( a.level <= b.level ) return 1;
-//                         else return -1;
-//                     } );
-//                     finalArr.push({
-//                         id,
-//                         value
-//                     });
-//                     id = item.ClientID;
-//                     value = [];
-//                     value.push(item);
-//                 }
-//             });
-//             if(id !== -1){
-//                 value.sort(function(a,b){
-//                     if( a.level <= b.level ) return 1;
-//                     else return -1;
-//                 } );
-//                 finalArr.push({
-//                     id,
-//                     value
-//                 });
-//             }
-//             res.send(finalArr);
-//         }
-//     })
-// })
 
 
 router.get('/getAllRelations',(req,res) => {

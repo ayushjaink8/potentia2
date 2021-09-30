@@ -21,20 +21,6 @@ CREATE TABLE ClientDt(ClientID int AUTO_INCREMENT,
     primary key(ClientID)
 )
 
-/*
-CREATE TABLE ClientCSV(
-    id int AUTO_INCREMENT,
-    personID numeric(6,0),
-    name varchar(150),
-    level int,
-    siblinglevel int,
-    relation varchar(30),
-    relatedTo varchar(150),
-    ClientID int,
-    primary key(id),
-    foreign key (ClientID) references ClientDt(ClientID)
-);   */
-
 CREATE TABLE ClientFirmRelateIDt(
     ClientFirmRelateID int AUTO_INCREMENT,
     CFRelateName text(128),

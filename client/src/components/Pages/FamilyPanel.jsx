@@ -14,8 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import MyGlass from '../Elements/MyGlass';
 import { Link } from 'react-router-dom';
 import FamilyTree from '../Elements/familyPanel/FamilyTree';
-// import ClientBizData from '../Elements/businessPanel/ClientBizData';
-// import ManageBizTypes from '../Elements/businessPanel/ManageBizTypes';
 
 
 const useStyles = makeStyles((theme) => ({

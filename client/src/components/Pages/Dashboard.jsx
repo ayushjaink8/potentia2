@@ -71,8 +71,6 @@ const Dashboard = () => {
 
   const setData = async () => {
 
-    // console.log('crelations: ', crelations);
-
     if(clientId !== 0 && clientRelations !== []) {
 
       const clientFamily = await clientRelations.find(e => e.id === clientId);
@@ -83,7 +81,6 @@ const Dashboard = () => {
       }
       else setclientFamilyData([]);
       // console.log('result: ',result)
-
     }
 
   }
