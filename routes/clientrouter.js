@@ -79,22 +79,20 @@ router.post('/uploadcsv', upload.single('csvfile'), (req, response) => {
 
     if (success) {
 
-        console.log('CSV file successfully processed');
+        console.log('*CSV file successfully processed*');
 
         let families = separateFamilies(nodes);
 
         families.forEach((family, index) => {
             const resultArray = family.result;
             const client = family.client;
-            // console.log('function for families2 called', family);
             const clientName = client.personName.split(' ');
 
-            let sql1 = 'Insert INTO ClientFirmRelateIDt() Values();';   // FamilyID to be inserted 26 lines below
+            let sql1 = 'Insert INTO ClientFirmRelateIDt() Values();';     // FamilyID to be inserted 26 lines below
             db.query(sql1, client.personID, (err, res) => {
                 if (err) console.log(err);
                 else {
                     let ClientFirmRelateID = res.insertId;
-
                     let sql, set;
                     if(clientName.length == 1){
                         sql = 'INSERT INTO ClientDt(personID,ClntFirstName, ClientFirmRelateID) VALUES(?,?,?);';
