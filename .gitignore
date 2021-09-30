@@ -3,4 +3,4 @@ node_modules/
 /*.csv
 .vscode
 /.env.swp
-*.xlsx
+/*.xlsx
