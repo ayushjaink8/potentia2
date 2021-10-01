@@ -27,10 +27,15 @@ var upload = multer({          // checking in the backend (again), the format th
 router.post('/uploadcsv', upload.single('csvfile'), (req, response) => {
     let nodes = [];
     let success = true;
+    let upload_file = XLSX.read(req.file.buffer, {type:'buffer'});
 
     let sheetNo = 0;   // input sheet number
-    let temp2 = XLSX.read(req.file.buffer, {type:'buffer'});
-    const ws = temp2.Sheets[temp2.SheetNames[sheetNo]];
+    const ws = upload_file.Sheets[upload_file.SheetNames[sheetNo]];
+
+    if(upload_file.SheetNames.length>1){
+        success = false;
+        response.send({message: "Invalid XLSX file!\n(Input file contains more than one sheet)"});
+    }
 
     var skipStartingRows = 0;   /// starting n rows will be skipped
 

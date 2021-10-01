@@ -58,11 +58,11 @@ function separateFamilies(relations){                // separating families and 
   // console.log('records: ',records);
   // console.log('equals: ',equals);
 
-  let visited = new Array(key+1).fill(0);
+  let visited = new Array(obj_key+1).fill(0);
 
   const families = [];
 
-  for(let i = 0; i <= key; i++){
+  for(let i = 0; i <= obj_key; i++){
 
     let family = [];
 
