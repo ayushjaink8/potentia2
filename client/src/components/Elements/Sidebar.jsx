@@ -21,12 +21,12 @@ import GroupIcon from '@material-ui/icons/Group';
 import WorkIcon from '@material-ui/icons/Work';
 import Dashboard from '../Pages/Dashboard';
 import { Box, Grid, Button } from '@material-ui/core';
-import ClientControl from '../Pages/ClientControl';
+import DataControl from '../Pages/DataControl';
 import { Route, Switch, Link } from 'react-router-dom';
 import BusinessPanel from '../Pages/BusinessPanel';
 import './CSS/MyGlass.modules.css';
 import MyGlass from './MyGlass';
-import ClientEdit from './ClientControlPanel/ClientEdit';
+import ClientEdit from './DataControlPanel/ClientEdit';
 import BizTypeEdit from './businessPanel/BizTypeEdit';
 import { useClientData } from './../../context/ClientContext';
 import  Cookies from 'universal-cookie';
@@ -178,7 +178,7 @@ export default function MiniDrawer() {
                   </Route>
                   <Route exact path="/ccpanel">
                     <Typography variant="h6" noWrap>
-                      Client Control Panel
+                      Data Control Panel
                     </Typography>
                   </Route>
                   <Route exact path="/business">
@@ -287,19 +287,19 @@ export default function MiniDrawer() {
               />
             </ListItem>
           </Link>
-          <Link to="/ccpanel" className={`${classes.toolbar} ${classes.deco}`}>
+          <Link to="/dcpanel" className={`${classes.toolbar} ${classes.deco}`}>
             <ListItem
               button
               data-list-type="ccp"
               className="li-3"
-              key={'Client Control Panel'}
+              key={'Data Control Panel'}
             >
               <ListItemIcon className="li-3" data-list-type="ccp">
                 <AccountBoxIcon data-list-type="ccp" />
               </ListItemIcon>
               <ListItemText
                 data-list-type="ccp"
-                primary={'Client Control Panel'}
+                primary={'Data Control Panel'}
               />
             </ListItem>
           </Link>
@@ -336,7 +336,7 @@ export default function MiniDrawer() {
         <div className={`${classes.toolbar}`} />
         <Switch>
           <Route exact path="/" component={Dashboard} />
-          <Route exact path="/ccpanel" component={ClientControl} />
+          <Route exact path="/dcpanel" component={DataControl} />
           <Route exact path="/business" component={BusinessPanel} />
           <Route exact path="/biz/edit/:id" component={BizTypeEdit} />
           <Route exact path="/ccpanel/edit/:id" component={ClientEdit} />

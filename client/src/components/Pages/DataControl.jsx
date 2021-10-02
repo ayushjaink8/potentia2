@@ -1,8 +1,8 @@
 import React from 'react';
-import UploadCsv from '../Elements/ClientControlPanel/UploadCsv';
-import ClientPanel from '../Elements/ClientControlPanel/ClientPanel';
+import UploadCsv from '../Elements/DataControlPanel/UploadCsv';
+import ClientPanel from '../Elements/DataControlPanel/ClientPanel';
 import {Grid, Box} from '@material-ui/core';
-const ClientControl = () => {
+const DataControl = () => {
   return (
     <div>
       <Grid
@@ -23,4 +23,4 @@ const ClientControl = () => {
   );
 };
 
-export default ClientControl;
+export default DataControl;
