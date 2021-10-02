@@ -19,6 +19,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import GroupIcon from '@material-ui/icons/Group';
 import WorkIcon from '@material-ui/icons/Work';
+import StorageIcon from '@material-ui/icons/StorageRounded';
 import Dashboard from '../Pages/Dashboard';
 import { Box, Grid, Button } from '@material-ui/core';
 import DataControl from '../Pages/DataControl';
@@ -31,6 +32,8 @@ import BizTypeEdit from './businessPanel/BizTypeEdit';
 import { useClientData } from './../../context/ClientContext';
 import  Cookies from 'universal-cookie';
 import FamilyPanel from '../Pages/FamilyPanel'
+import ClientDetails from '../Pages/ClientDetails';
+import Page_404 from '../Pages/page_404';
 const cookies = new Cookies();
 
 const drawerWidth = 250;
@@ -176,7 +179,7 @@ export default function MiniDrawer() {
                       Dashboard
                     </Typography>
                   </Route>
-                  <Route exact path="/ccpanel">
+                  <Route exact path="/dcpanel">
                     <Typography variant="h6" noWrap>
                       Data Control Panel
                     </Typography>
@@ -189,6 +192,11 @@ export default function MiniDrawer() {
                   <Route exact path="/familyPanel">
                     <Typography variant="h6" noWrap>
                       Family Tree View
+                    </Typography>
+                  </Route>
+                  <Route exact path="/clientDetails">
+                    <Typography variant="h6" noWrap>
+                      Client Details Panel
                     </Typography>
                   </Route>
                 </Switch>
@@ -290,12 +298,12 @@ export default function MiniDrawer() {
           <Link to="/dcpanel" className={`${classes.toolbar} ${classes.deco}`}>
             <ListItem
               button
-              data-list-type="ccp"
+              data-list-type="dcp"
               className="li-3"
               key={'Data Control Panel'}
             >
-              <ListItemIcon className="li-3" data-list-type="ccp">
-                <AccountBoxIcon data-list-type="ccp" />
+              <ListItemIcon className="li-3" data-list-type="dcp">
+                <StorageIcon style={{border:"2px solid #6b5617", borderRadius:"4px"}} data-list-type="dcp" />
               </ListItemIcon>
               <ListItemText
                 data-list-type="ccp"
@@ -323,10 +331,23 @@ export default function MiniDrawer() {
               className="li-3"
               key={'Family Panel'}
             >
-              <ListItemIcon className="li-3" data-list-type="business">
+              <ListItemIcon className="li-3" data-list-type="family">
                 <GroupIcon data-list-type="family" />
               </ListItemIcon>
               <ListItemText primary={'Family Panel'} />
+            </ListItem>
+          </Link>
+          <Link to="/clientDetails" className={`${classes.toolbar} ${classes.deco}`}>
+            <ListItem
+              button
+              data-list-type="client"
+              className="li-3"
+              key={'Client Details'}
+            >
+              <ListItemIcon className="li-3" data-list-type="client">
+                <AccountBoxIcon data-list-type="client" />
+              </ListItemIcon>
+              <ListItemText primary={'Client Details'} />
             </ListItem>
           </Link>
         </List>
@@ -341,6 +362,9 @@ export default function MiniDrawer() {
           <Route exact path="/biz/edit/:id" component={BizTypeEdit} />
           <Route exact path="/ccpanel/edit/:id" component={ClientEdit} />
           <Route exact path="/familyPanel" component={FamilyPanel} />
+          <Route exact path="/clientDetails" component={ClientDetails} />
+          <Route exact path="/clientDetails/:id" component={ClientDetails} />
+          <Route exact path="*" component={Page_404} ></Route>
         </Switch>
       </main>
     </div>
