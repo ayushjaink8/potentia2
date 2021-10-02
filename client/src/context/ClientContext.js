@@ -91,9 +91,7 @@ function ClientContextProvider(props) {
     if (res.data.status === true) {
       setloggedin(true);
       setloading(false);
-      var Cookie_expiry = new Date();
-      Cookie_expiry.setDate(Cookie_expiry.getDate()+10e5);   // expiry date of cookie is set to be practically infinite (~ 4000 years)
-      cookies.set('token', String(res.data.token), {expires: Cookie_expiry});
+      cookies.set('token', String(res.data.token), {maxAge: 10e9});  // expiry date of cookie is set to be practically infinite (~ 1200 years)
     } else {
       alert(res.data.error);
     }
