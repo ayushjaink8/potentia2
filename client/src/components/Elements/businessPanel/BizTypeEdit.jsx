@@ -79,10 +79,8 @@ const BizTypeEdit = (props) => {
   const { getClientBizType, host } = useBusinessData();
   const [NewData, setNewData] = useState(initialState);
 
-  const urlID = props.match.params.id.split('$');
 
-
-  const fetchData = async () => {
+  const fetchData = async (urlID) => {
 
     await setClientId(parseInt(urlID[0]));
     await setBizTypeId(parseInt(urlID[1]));
@@ -97,7 +95,8 @@ const BizTypeEdit = (props) => {
 
   useEffect(() => {
 
-    fetchData();
+    const urlID = props.match.params.id.split('$');
+    fetchData(urlID);
 
   },[props.match.params.id, ClientId, BizTypeId]);
 

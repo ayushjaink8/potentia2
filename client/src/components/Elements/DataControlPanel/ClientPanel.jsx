@@ -82,10 +82,10 @@ const renderDetailsButton = (params) => {
   return (
     <strong>
       <Button
+        id="detailsButton"
         variant="contained"
         color="primary"
         size="small"
-        style={{ marginLeft: 16 }}
         component={Link}
         to={`/ccpanel/edit/${params.id}`}
       >
@@ -96,7 +96,11 @@ const renderDetailsButton = (params) => {
 };
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
+  { field: 'id',
+    headerName: 'ID',
+    width: 90,
+    editable: false,
+  },
   {
     field: 'ClntFirstName',
     headerName: 'First name',
@@ -114,10 +118,12 @@ const columns = [
     headerClassName: 'buttonfield-header',
     width: 100,
     type: 'number',
+    headerAlign: 'right',
+    align: 'right',
     renderCell: renderDetailsButton,
     flex: 5,
     disableClickEventBubbling: true,
-  },
+  }
 ];
 
 const ClientPanel = () => {

@@ -20,12 +20,12 @@ const theme = createMuiTheme({
         '*::-webkit-scrollbar': {
           borderRadius: '10px',
           width: '10px',
-          height: '40px',
+          height: '10px',
           backgroundColor: '#aaa'
         },
         '*::-webkit-scrollbar-thumb': {
           borderRadius: '10px',
-          background: '#000'
+          background: '#585858'
         }
       },
     },
