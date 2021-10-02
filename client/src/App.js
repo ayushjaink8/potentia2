@@ -17,6 +17,16 @@ const theme = createMuiTheme({
           WebkitFontSmoothing: 'auto',
           fontFamily: `'Nunito Sans', sans-serif`,
         },
+        '*::-webkit-scrollbar': {
+          borderRadius: '10px',
+          width: '10px',
+          height: '40px',
+          backgroundColor: '#aaa'
+        },
+        '*::-webkit-scrollbar-thumb': {
+          borderRadius: '10px',
+          background: '#000'
+        }
       },
     },
   },
