@@ -117,11 +117,12 @@ const columns = [
     field: '',
     headerClassName: 'buttonfield-header',
     width: 100,
+    maxWidth: 'fit-content',
     type: 'number',
     headerAlign: 'right',
     align: 'right',
     renderCell: renderDetailsButton,
-    flex: 5,
+    flex: 4,
     disableClickEventBubbling: true,
   }
 ];
@@ -186,6 +187,7 @@ const ClientPanel = () => {
             ) : (
               <div style={{ height: '60vh' }} className={classes.root}>
                 <DataGrid
+                  width="fit-content"
                   rows={clients}
                   columns={columns}
                   checkboxSelection

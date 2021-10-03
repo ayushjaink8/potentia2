@@ -1,39 +1,49 @@
 import React from 'react';
-import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import { Route, Switch, Link } from 'react-router-dom';
+import clsx from 'clsx';
+
+import {
+  Box,
+  Grid,
+  Button,
+  Drawer,
+  AppBar,
+  Toolbar,
+  List,
+  CssBaseline,
+  Typography,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@material-ui/core';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import GroupIcon from '@material-ui/icons/Group';
 import WorkIcon from '@material-ui/icons/Work';
 import StorageIcon from '@material-ui/icons/StorageRounded';
+
+
 import Dashboard from '../Pages/Dashboard';
-import { Box, Grid, Button } from '@material-ui/core';
 import DataControl from '../Pages/DataControl';
-import { Route, Switch, Link } from 'react-router-dom';
 import BusinessPanel from '../Pages/BusinessPanel';
-import './CSS/MyGlass.modules.css';
-import MyGlass from './MyGlass';
 import ClientEdit from './DataControlPanel/ClientEdit';
 import BizTypeEdit from './businessPanel/BizTypeEdit';
-import { useClientData } from './../../context/ClientContext';
-import  Cookies from 'universal-cookie';
 import FamilyPanel from '../Pages/FamilyPanel'
 import ClientDetails from '../Pages/ClientDetails';
 import Page_404 from '../Pages/page_404';
+
+
+import { useClientData } from './../../context/ClientContext';
+import  Cookies from 'universal-cookie';
+
+
 const cookies = new Cookies();
 
 const drawerWidth = 250;
@@ -151,17 +161,21 @@ export default function MiniDrawer() {
 
   return (
     <div className={classes.root}>
+
       <CssBaseline />
+
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
+
         <Toolbar>
           <Grid container>
             <Grid item xs={6} md={5}>
               <Box display="flex" justifyContent="start" alignItems="center ">
+
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
@@ -173,6 +187,7 @@ export default function MiniDrawer() {
                 >
                   <MenuIcon />
                 </IconButton>
+
                 <Switch>
                   <Route exact path="/">
                     <Typography variant="h6" noWrap>
@@ -184,14 +199,14 @@ export default function MiniDrawer() {
                       Data Control Panel
                     </Typography>
                   </Route>
-                  <Route exact path="/business">
-                    <Typography variant="h6" noWrap>
-                      Business Control Panel
-                    </Typography>
-                  </Route>
                   <Route exact path="/familyPanel">
                     <Typography variant="h6" noWrap>
                       Family Tree View
+                    </Typography>
+                  </Route>
+                  <Route exact path="/business">
+                    <Typography variant="h6" noWrap>
+                      Business Control Panel
                     </Typography>
                   </Route>
                   <Route exact path="/clientDetails">
@@ -200,6 +215,7 @@ export default function MiniDrawer() {
                     </Typography>
                   </Route>
                 </Switch>
+
               </Box>
             </Grid>
             <Grid style={{alignSelf:'center'}} item xs={6} md={7}>
@@ -207,7 +223,7 @@ export default function MiniDrawer() {
                 <Box display="flex" alignItems="center" justifyContent="flex-end" >
                   <Typography noWrap ><Box mr={2}>Welcome Senthil!</Box></Typography>
                   <Button className={classes.LogoutBtn} variant="outlined" color="secondary" 
-                    onClick={ () => {cookies.remove('login'); setloggedin(false)} } 
+                    onClick={ () => {cookies.remove('token'); setloggedin(false)} } 
                   >
                     Logout
                   </Button>
@@ -218,7 +234,10 @@ export default function MiniDrawer() {
             </Grid>
           </Grid>
         </Toolbar>
+
       </AppBar>
+
+
       <Drawer
         variant="permanent"
         className={`${clsx(classes.drawer, {
@@ -232,6 +251,7 @@ export default function MiniDrawer() {
           }),
         }}
       >
+
         <Box
           boxShadow={2}
           className={`${classes.potentiaDiv}`}
@@ -268,12 +288,11 @@ export default function MiniDrawer() {
         <Box bgcolor="secondary.light">
           <Divider className={`${classes.divi}`} light={true} />
         </Box>
+
+
         <List className={classes.sidebarContent}>
-          <Link
-            to="/"
-            className={`li-1 ${classes.toolbar} ${classes.deco}`}
-            onClick={clicked}
-          >
+
+          <Link to="/" className={`li-1 ${classes.toolbar} ${classes.deco}`} onClick={clicked} >
             <ListItem
               button
               data-list-type="dash"
@@ -287,14 +306,10 @@ export default function MiniDrawer() {
               >
                 <DashboardIcon className="li-1" data-list-type="dash" />
               </ListItemIcon>
-              <ListItemText
-                className="li-1"
-                data-list-type="dash"
-                color="primary"
-                primary={'Dashboard'}
-              />
+              <ListItemText data-list-type="dash" primary={'Dashboard'} />
             </ListItem>
           </Link>
+
           <Link to="/dcpanel" className={`${classes.toolbar} ${classes.deco}`}>
             <ListItem
               button
@@ -305,25 +320,10 @@ export default function MiniDrawer() {
               <ListItemIcon className="li-3" data-list-type="dcp">
                 <StorageIcon style={{border:"2px solid #6b5617", borderRadius:"4px"}} data-list-type="dcp" />
               </ListItemIcon>
-              <ListItemText
-                data-list-type="ccp"
-                primary={'Data Control Panel'}
-              />
+              <ListItemText data-list-type="ccp" primary={'Data Control Panel'} />
             </ListItem>
           </Link>
-          <Link to="/business" className={`${classes.toolbar} ${classes.deco}`}>
-            <ListItem
-              button
-              data-list-type="business"
-              className="li-3"
-              key={'Business Panel'}
-            >
-              <ListItemIcon className="li-3" data-list-type="business">
-                <WorkIcon data-list-type="business" />
-              </ListItemIcon>
-              <ListItemText primary={'Business Panel'} />
-            </ListItem>
-          </Link>
+
           <Link to="/familyPanel" className={`${classes.toolbar} ${classes.deco}`}>
             <ListItem
               button
@@ -337,6 +337,21 @@ export default function MiniDrawer() {
               <ListItemText primary={'Family Panel'} />
             </ListItem>
           </Link>
+
+          <Link to="/business" className={`${classes.toolbar} ${classes.deco}`}>
+            <ListItem
+              button
+              data-list-type="business"
+              className="li-3"
+              key={'Business Panel'}
+            >
+              <ListItemIcon className="li-3" data-list-type="business">
+                <WorkIcon data-list-type="business" />
+              </ListItemIcon>
+              <ListItemText primary={'Business Panel'} />
+            </ListItem>
+          </Link>
+
           <Link to="/clientDetails" className={`${classes.toolbar} ${classes.deco}`}>
             <ListItem
               button
@@ -350,9 +365,14 @@ export default function MiniDrawer() {
               <ListItemText primary={'Client Details'} />
             </ListItem>
           </Link>
+
         </List>
-        <MyGlass></MyGlass>
+
+
+
       </Drawer>
+
+
       <main className={`${classes.content}  contentBg-3`}>
         <div className={`${classes.toolbar}`} />
         <Switch>
@@ -367,6 +387,8 @@ export default function MiniDrawer() {
           <Route exact path="*" component={Page_404} ></Route>
         </Switch>
       </main>
+
+
     </div>
   );
 }

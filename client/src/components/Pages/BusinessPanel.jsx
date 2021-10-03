@@ -16,6 +16,7 @@ import MyGlass from '../Elements/MyGlass';
 import { Link } from 'react-router-dom';
 import ClientBizData from '../Elements/businessPanel/ClientBizData';
 import ManageBizTypes from '../Elements/businessPanel/ManageBizTypes';
+import SearchBar from '../Elements/SearchBar';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,10 +54,10 @@ const BusinessPanel = () => {
   const [selectedClient, setselectedClient] = useState(0);
   const { allClients, getClient } = useClientData();
 
-  const handleChange = (event) => {
-    setselectedClient(parseInt(event.target.value));
-    setclientId(parseInt(event.target.value));
-  };
+  // const handleChange = (event) => {
+  //   setselectedClient(parseInt(event.target.value));
+  //   setclientId(parseInt(event.target.value));
+  // };
 
   const SelectClientMsg = () => <>
     <Box  display="flex" justifyContent="center">
@@ -87,59 +88,15 @@ const BusinessPanel = () => {
 
 
                     <Grid item xs={12} sm={10}>
-                      <Box display="flex" justifyContent="center">
+                      <Box minWidth="26em" mb={3} mr={20} ml={20}>
                         <Card className={classes.card}>
-                        <MyGlass
+                          <MyGlass
                             comp={
-                            <>
-                                <Box p={1}>
-                                <FormControl className={classes.formControl}>
-                                    <Grid container direction="row">
-                                    <Grid container item xs={5}>
-                                        <Box
-                                        display="flex"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        height="100%"
-                                        >
-                                        <Typography className={classes.labelDropdown}>
-                                            Select Client Id:{' '}
-                                        </Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid container item xs={7}>
-                                        <Select
-                                        labelId="clientId"
-                                        id=""
-                                        className={classes.selectDropdown}
-                                        name="clientId"
-                                        value={clientId}
-                                        onChange={handleChange}
-                                        >
-                                        <Link component={MenuItem} key={0} to='' value={0}>
-                                            <em>Select Client</em>
-                                        </Link>
-                                        {allClients?.map((cid) => (
-                                            <Link
-                                            key={cid.ClientID}
-                                            to={`/edit/${cid.ClientID}`}
-                                            value={cid.ClientID}
-                                            component={MenuItem}
-                                            >
-                                            {cid.ClientID + ' - ' + cid.ClntFirstName}
-                                            {cid.ClntLastName
-                                                ? ' ' + cid.ClntLastName
-                                                : ''}
-                                            </Link>
-                                        ))}
-                                        </Select>
-                                    </Grid>
-                                    </Grid>
-                                </FormControl>
-                                </Box>
-                            </>
+                              <Box m={2}>
+                                <SearchBar setSelectedClient={setselectedClient}/>
+                              </Box>
                             }
-                        />
+                          />
                         </Card>
                       </Box>
                     </Grid>
