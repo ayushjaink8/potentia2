@@ -17,8 +17,13 @@ const SearchBar = ({inputData, setSelectedClient}) => {
   const { allClients } = useClientData();
 
   const onInputChange = (e) => {
-    var selectedID = e.target.textContent.split(" - ")[0];
-    setSelectedClient(selectedID);
+    var selectedID = parseInt(e.target.textContent.split(" - ")[0]);
+    if(e.target.textContent=='') {
+      setSelectedClient(0);
+    }
+    else if (selectedID) {
+      setSelectedClient(selectedID);
+    }
   }
 
   let defaultProps = {};

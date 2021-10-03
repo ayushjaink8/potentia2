@@ -33,7 +33,7 @@ import StorageIcon from '@material-ui/icons/StorageRounded';
 import Dashboard from '../Pages/Dashboard';
 import DataControl from '../Pages/DataControl';
 import BusinessPanel from '../Pages/BusinessPanel';
-import ClientEdit from './DataControlPanel/ClientEdit';
+import ClientEdit from './oldClientPanel/ClientEdit';
 import BizTypeEdit from './businessPanel/BizTypeEdit';
 import FamilyPanel from '../Pages/FamilyPanel'
 import ClientDetails from '../Pages/ClientDetails';

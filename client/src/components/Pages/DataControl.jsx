@@ -1,6 +1,6 @@
 import React from 'react';
 import UploadCsv from '../Elements/DataControlPanel/UploadCsv';
-import ClientPanel from '../Elements/DataControlPanel/ClientPanel';
+import ControlPanel from '../Elements/DataControlPanel/controlPanel';
 
 import {Grid, Box} from '@material-ui/core';
 const DataControl = () => {
@@ -17,7 +17,7 @@ const DataControl = () => {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <ClientPanel />
+          <ControlPanel />
         </Grid>
       </Grid>
     </>
