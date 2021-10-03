@@ -10,8 +10,8 @@ import {
   Select,
 } from '@material-ui/core';
 
-import MyGlass from '../MyGlass';
-import { useClientData } from '../../../context/ClientContext';
+import MyGlass from '../../MyGlass';
+import { useClientData } from '../../../../context/ClientContext';
 import { ClntClntRelLogic } from './ClntClntRelLogic';
 
 const useStyles = makeStyles((theme) => ({

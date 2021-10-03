@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, TextField, Grid } from '@material-ui/core';
-import SelectClientID from '../SelectClientID';
+import SelectClientID from './SelectClientID';
 import { useClientData } from '../../../../context/ClientContext';
 
 import Table from '@material-ui/core/Table';

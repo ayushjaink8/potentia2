@@ -1,5 +1,5 @@
 
-import { rMap, siblingMap, oppositeMap } from "../relationDictionary";
+import { rMap, siblingMap, oppositeMap } from "../../relationDictionary";
 
 
 function sortData(hashMap){
